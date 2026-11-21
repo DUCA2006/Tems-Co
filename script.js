@@ -4,7 +4,7 @@
 const WHATSAPP_NUMBER = "2348074608682";
 
 const PRODUCTS_API_URL =
-  "https://temscostudio.base44.app/api/public/listPublishedProducts"; //[span_5](start_span)[span_5](end_span)
+  "https://temscostudio.base44.app/api/public/listPublishedProducts"; //[span_1](start_span)[span_1](end_span)
 
 const productGrid = document.getElementById("productGrid");
 const emptyState = document.getElementById("emptyState");
@@ -232,12 +232,13 @@ async function loadProducts() {
   loadMessage.textContent = "Loading collection...";
 
   try {
-    const response = await fetch(PRODUCTS_API_URL, {
+    const response = await fetch(`${PRODUCTS_API_URL}?t=${Date.now()}`, {
       method: "GET",
+      cache: "no-store",
       headers: {
         "Accept": "application/json"
       }
-    });
+    }); //[span_2](start_span)[span_2](end_span)
 
     if (!response.ok) {
       throw new Error(
