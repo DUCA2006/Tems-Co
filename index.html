@@ -14,6 +14,56 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- HERO SPOTLIGHT SIZING & VISIBILITY OVERRIDES -->
+  <style>
+    .hero-spotlight {
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+
+    .hero-spotlight .eyebrow {
+      color: #8c7355 !important;
+      opacity: 1 !important;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .hero-spotlight .spotlight-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.65rem;
+      font-weight: 400;
+      margin: 0 0 14px 0;
+      line-height: 1.2;
+    }
+
+    #featuredProductContainer {
+      width: 100%;
+    }
+
+    #featuredProductContainer img {
+      width: 100%;
+      height: 230px !important;
+      max-height: 230px !important;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    @media (max-width: 600px) {
+      .hero-spotlight {
+        margin-top: 28px;
+      }
+      #featuredProductContainer > * {
+        padding-bottom: 14px;
+      }
+      #featuredProductContainer h3,
+      #featuredProductContainer .product-title {
+        font-size: 1.15rem;
+        margin-bottom: 4px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -103,50 +153,16 @@
       </div>
 
 
-      <!-- HERO DECORATION -->
-      <div class="hero-art" aria-hidden="true">
-
-        <div class="art-frame">
-
-          <div class="art-inner">
-
-            <span class="art-orbit orbit-one"></span>
-            <span class="art-orbit orbit-two"></span>
-
-            <span class="art-spark spark-one">✧</span>
-            <span class="art-spark spark-two">✧</span>
-
-            <span class="art-caption">
-              ELEGANCE
-              <br>
-              IN EVERY DETAIL
-            </span>
-
-          </div>
-
+      <!-- FEATURED SPOTLIGHT (REPLACED HERO-ART) -->
+      <div class="hero-spotlight" id="featuredSpotlight" style="display: none;">
+        <p class="eyebrow">THE SPOTLIGHT</p>
+        <h2 class="spotlight-title">Featured <em>piece.</em></h2>
+        <div id="featuredProductContainer">
+          <!-- The featured product will be injected here by Javascript -->
         </div>
-
-        <span class="art-side-label">
-          A LITTLE SOMETHING EXTRA
-        </span>
-
       </div>
 
     </section>
-
-    <!-- NEW FEATURED SPOTLIGHT SECTION -->
-    <section class="featured-spotlight section-wrap" id="featuredSpotlight" style="display: none; padding-top: 40px; padding-bottom: 40px;">
-      <div class="section-heading" style="margin-bottom: 24px;">
-        <div>
-          <p class="eyebrow">THE SPOTLIGHT</p>
-          <h2>Featured <em>piece.</em></h2>
-        </div>
-      </div>
-      <div id="featuredProductContainer">
-        <!-- The featured product will be injected here by Javascript -->
-      </div>
-    </section>
-    <!-- END FEATURED SPOTLIGHT SECTION -->
 
 
     <!-- BRAND HIGHLIGHTS -->

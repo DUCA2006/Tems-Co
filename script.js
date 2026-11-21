@@ -12,7 +12,7 @@ const searchInput = document.getElementById("productSearch");
 const categoryFilter = document.getElementById("categoryFilter");
 const loadMessage = document.getElementById("loadMessage");
 
-// New elements for the Featured Spotlight
+// Elements for the Featured Spotlight
 const featuredSpotlight = document.getElementById("featuredSpotlight");
 const featuredProductContainer = document.getElementById("featuredProductContainer");
 
@@ -75,51 +75,75 @@ function makeWhatsAppLink(product) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
-// Get the main product image from Base44
+// Get high-resolution product image from Base44
 function getProductImage(product) {
-  return (
+  const rawUrl =
     product.primary_image ||
     (Array.isArray(product.images) ? product.images[0] : "") ||
-    ""
-  );
+    "";
+
+  if (!rawUrl) return "";
+
+  try {
+    const url = new URL(rawUrl);
+    // Ensure CDN-resized images load at high DPI sharpness (at least 900px wide)
+    if (url.searchParams.has("width")) {
+      const currentW = Number(url.searchParams.get("width"));
+      if (currentW && currentW < 900) url.searchParams.set("width", "900");
+    }
+    if (url.searchParams.has("w")) {
+      const currentW = Number(url.searchParams.get("w"));
+      if (currentW && currentW < 900) url.searchParams.set("w", "900");
+    }
+    if (url.searchParams.has("quality")) {
+      url.searchParams.set("quality", "90");
+    }
+    if (url.searchParams.has("q")) {
+      url.searchParams.set("q", "90");
+    }
+    return url.toString();
+  } catch {
+    return rawUrl;
+  }
 }
 
 // ---------------------------------------------------------
-// NEW FUNCTION: Render the Featured Product at the top
+// Render the Featured Product in the Hero Spotlight
 // ---------------------------------------------------------
 function renderFeaturedProduct() {
-  // Find the first product that has the featured toggle turned on
-  const featuredProduct = products.find(p => p.featured === true || p.featured === "true");
+  const featuredProduct = products.find(
+    p => p.featured === true || p.featured === "true"
+  );
   
-  // Get the image URL
   const imageUrl = featuredProduct ? getProductImage(featuredProduct) : "";
 
-  // If there is no featured product OR it has no image, hide the section completely
   if (!featuredProduct || !imageUrl) {
     featuredSpotlight.style.display = "none";
     return;
   }
 
-  // Show the spotlight section
   featuredSpotlight.style.display = "block";
-  featuredProductContainer.innerHTML = ""; // Clear old content
+  featuredProductContainer.innerHTML = "";
 
-  // Create the card (using the same classes so it matches your CSS)
-const card = document.createElement("article");
-card.className = "product-card";
-
-// Let the CSS handle the sizing instead of inline styles
+  const card = document.createElement("article");
+  card.className = "product-card";
 
   const image = document.createElement("img");
   image.src = imageUrl;
   image.alt = featuredProduct.name || "Featured piece";
+  image.fetchPriority = "high";
+  image.decoding = "sync";
+  image.style.imageRendering = "-webkit-optimize-contrast";
+
+  image.onerror = () => {
+    featuredSpotlight.style.display = "none";
+  };
   
   const info = document.createElement("div");
   info.className = "product-card-info";
 
   const name = document.createElement("h3");
   name.textContent = featuredProduct.name || "Untitled product";
-  name.style.fontSize = "1.5rem"; // Slightly larger text for the spotlight
 
   const description = document.createElement("p");
   description.textContent = featuredProduct.description || "";
@@ -209,6 +233,8 @@ function renderProducts() {
     image.src = imageUrl;
     image.alt = product.name || "TEM'S & CO. jewellery";
     image.loading = "lazy";
+    image.decoding = "async";
+    image.style.imageRendering = "-webkit-optimize-contrast";
     
     image.onerror = () => {
       card.remove();
@@ -316,11 +342,7 @@ async function loadProducts() {
     );
     
     populateCategories();
-    
-    // --- NEW LINE ADDED HERE ---
-    renderFeaturedProduct(); 
-    // ----------------------------
-    
+    renderFeaturedProduct();
     renderProducts();
     
     loadMessage.textContent = "";
