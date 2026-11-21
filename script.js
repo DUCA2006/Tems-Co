@@ -4,9 +4,7 @@
 const WHATSAPP_NUMBER = "2348074608682";
 
 const PRODUCTS_API_URL =
-  "https://temsandcostudio.base44.app/api/listPublishedProducts";
-const PUBLIC_LIST_PUBLISHED_PRODUCTS_URL =
-  "https://temsandcostudio.base44.app/api/public/listPublishedProducts"; //[span_0](start_span)[span_0](end_span)
+  "https://temscostudio.base44.app/api/public/listPublishedProducts"; //[span_5](start_span)[span_5](end_span)
 
 const productGrid = document.getElementById("productGrid");
 const emptyState = document.getElementById("emptyState");
@@ -96,6 +94,7 @@ function renderProducts() {
       category === "all" || product.category === category;
 
     const isPublished =
+      product.publication_status == null ||
       product.publication_status === "Published";
 
     return matchesSearch && matchesCategory && isPublished;
@@ -253,6 +252,7 @@ async function loadProducts() {
     }
 
     products = data.products.filter(product =>
+      product.publication_status == null ||
       product.publication_status === "Published"
     );
 
@@ -273,27 +273,6 @@ async function loadProducts() {
 
     loadMessage.textContent =
       "We couldn't load the collection right now. Please try again later.";
-  }
-}
-
-// Fetch from the /api/public/listPublishedProducts endpoint[span_1](start_span)[span_1](end_span)
-async function fetchPublicPublishedProducts() {
-  try {
-    const response = await fetch(PUBLIC_LIST_PUBLISHED_PRODUCTS_URL, {
-      method: "GET",
-      headers: {
-        "Accept": "application/json"
-      }
-    }); //[span_2](start_span)[span_2](end_span)
-
-    if (!response.ok) {
-      throw new Error(`Public product request failed (${response.status})`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Unable to fetch public published products:", error);
-    return null;
   }
 }
 
