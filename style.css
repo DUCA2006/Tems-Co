@@ -137,92 +137,128 @@ h2 { font-size: clamp(35px, 4vw, 50px); line-height: 1.18; margin-bottom: 0; }
 
 
 /* =========================================
-   TEM'S & CO. PRODUCT CARD UPDATES
+   TEM'S & CO. PRODUCT GRID & CARD FIXES
    ========================================= */
 
-/* 1. The Card Container */
+/* 1. The Grid Container (Forces 2 columns on mobile, 3-4 on desktop) */
+#productGrid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important; /* 2 columns on mobile */
+  gap: 16px !important; /* Space between cards */
+  width: 100% !important;
+  align-items: start;
+}
+
+/* 3 or 4 columns on larger screens */
+@media (min-width: 768px) {
+  #productGrid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 24px !important;
+  }
+}
+@media (min-width: 1024px) {
+  #productGrid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+/* 2. The Product Card */
 .product-card {
   background-color: #ffffff;
-  /* This replaces the harsh black border with a soft, elegant beige */
   border: 1px solid #e8e2d9 !important; 
-  border-radius: 8px; /* Softens the corners */
-  overflow: hidden; /* Keeps the image inside the rounded corners */
+  border-radius: 8px; 
+  overflow: hidden; 
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%; /* Makes all cards in a row the same height */
 }
 
-/* Optional: Adds a very subtle shadow when you hover over the card */
 .product-card:hover {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04); 
 }
 
-/* 2. The Product Image */
+/* 3. The Product Image */
 .product-card img {
   width: 100%;
-  height: 350px; /* Adjust this if you want taller/shorter images */
-  object-fit: cover; /* IMPORTANT: This stops the image from stretching weirdly */
+  /* This forces the image to be a perfect square so it doesn't stretch */
+  aspect-ratio: 1 / 1 !important; 
+  object-fit: cover; 
   display: block;
   border-bottom: 1px solid #e8e2d9;
 }
 
-/* 3. The Text Container */
+/* 4. The Text Container */
 .product-card-info {
-  padding: 24px;
+  padding: 12px; /* Reduced padding for mobile */
   display: flex;
   flex-direction: column;
   flex-grow: 1; 
 }
 
+@media (min-width: 768px) {
+  .product-card-info {
+    padding: 20px; /* Larger padding on desktop */
+  }
+}
+
 .product-card-info h3 {
   font-family: inherit;
-  font-size: 1.15rem;
+  font-size: 1rem;
   margin-top: 0;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   color: #1a1a1a;
   font-weight: 500;
 }
 
 .product-card-info p {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #666;
   margin-top: 0;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+  /* Hides long descriptions so cards stay neat */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* Price and Stock styling */
 .product-card-info .price {
   font-weight: 600;
   color: #1a1a1a;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .product-card-info .stock-status {
-  font-size: 0.85rem;
-  margin-bottom: 24px;
+  font-size: 0.8rem;
+  margin-bottom: 16px;
 }
 
 .product-card-info .in-stock {
-  color: #4A7C59; /* Muted Green */
+  color: #4A7C59; 
 }
 
 .product-card-info .sold-out {
-  color: #A0522D; /* Muted Rust/Red */
+  color: #A0522D; 
 }
 
-/* 4. The WhatsApp Button */
+/* 5. The WhatsApp Button */
 .product-card-info button {
-  margin-top: auto; /* This pushes the button perfectly to the bottom */
-  padding: 14px 20px;
+  margin-top: auto; 
+  padding: 10px; /* Smaller padding */
   background-color: transparent;
-  border: 1px solid #c4b5a0; /* The brand gold/beige color */
+  border: 1px solid #c4b5a0; 
   color: #1a1a1a;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
+  white-space: nowrap; /* STOPS the text from wrapping into 3 lines */
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .product-card-info button:hover:not(:disabled) {
