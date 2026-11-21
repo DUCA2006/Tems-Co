@@ -133,3 +133,105 @@ h2 { font-size: clamp(35px, 4vw, 50px); line-height: 1.18; margin-bottom: 0; }
   .product-card-info h3 { font-size: 15px; }
   .site-footer { flex-direction: column; text-align: center; }
 }
+
+
+
+/* =========================================
+   TEM'S & CO. PRODUCT CARD UPDATES
+   ========================================= */
+
+/* 1. The Card Container */
+.product-card {
+  background-color: #ffffff;
+  /* This replaces the harsh black border with a soft, elegant beige */
+  border: 1px solid #e8e2d9 !important; 
+  border-radius: 8px; /* Softens the corners */
+  overflow: hidden; /* Keeps the image inside the rounded corners */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Optional: Adds a very subtle shadow when you hover over the card */
+.product-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04); 
+}
+
+/* 2. The Product Image */
+.product-card img {
+  width: 100%;
+  height: 350px; /* Adjust this if you want taller/shorter images */
+  object-fit: cover; /* IMPORTANT: This stops the image from stretching weirdly */
+  display: block;
+  border-bottom: 1px solid #e8e2d9;
+}
+
+/* 3. The Text Container */
+.product-card-info {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
+}
+
+.product-card-info h3 {
+  font-family: inherit;
+  font-size: 1.15rem;
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.product-card-info p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+/* Price and Stock styling */
+.product-card-info .price {
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.product-card-info .stock-status {
+  font-size: 0.85rem;
+  margin-bottom: 24px;
+}
+
+.product-card-info .in-stock {
+  color: #4A7C59; /* Muted Green */
+}
+
+.product-card-info .sold-out {
+  color: #A0522D; /* Muted Rust/Red */
+}
+
+/* 4. The WhatsApp Button */
+.product-card-info button {
+  margin-top: auto; /* This pushes the button perfectly to the bottom */
+  padding: 14px 20px;
+  background-color: transparent;
+  border: 1px solid #c4b5a0; /* The brand gold/beige color */
+  color: #1a1a1a;
+  font-family: inherit;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.product-card-info button:hover:not(:disabled) {
+  background-color: #c4b5a0;
+  color: #ffffff;
+}
+
+.product-card-info button:disabled {
+  border-color: #e0e0e0;
+  color: #a0a0a0;
+  cursor: not-allowed;
+}
