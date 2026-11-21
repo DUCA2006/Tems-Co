@@ -271,3 +271,23 @@ h2 { font-size: clamp(35px, 4vw, 50px); line-height: 1.18; margin-bottom: 0; }
   color: #a0a0a0;
   cursor: not-allowed;
 }
+
+
+/* =========================================
+   FEATURED SPOTLIGHT FIX (Makes it smaller)
+   ========================================= */
+
+#featuredProductContainer .product-card {
+  max-width: 320px !important; /* Makes the card much smaller on mobile */
+  margin: 0 auto !important;
+  border: 1px solid #c4b5a0 !important; /* Optional: gold border to make it stand out */
+}
+
+#featuredProductContainer .product-card img {
+  height: 320px !important; /* Forces the image to be a square, not a giant rectangle */
+  aspect-ratio: 1 / 1 !important;
+}
+
+#featuredProductContainer .product-card-info h3 {
+  font-size: 1.3rem !important; /* Brings the text size down slightly */
+}

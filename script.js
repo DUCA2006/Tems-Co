@@ -12,6 +12,10 @@ const searchInput = document.getElementById("productSearch");
 const categoryFilter = document.getElementById("categoryFilter");
 const loadMessage = document.getElementById("loadMessage");
 
+// New elements for the Featured Spotlight
+const featuredSpotlight = document.getElementById("featuredSpotlight");
+const featuredProductContainer = document.getElementById("featuredProductContainer");
+
 let products = [];
 
 // Current year
@@ -80,12 +84,81 @@ function getProductImage(product) {
   );
 }
 
-// Render products
+// ---------------------------------------------------------
+// NEW FUNCTION: Render the Featured Product at the top
+// ---------------------------------------------------------
+function renderFeaturedProduct() {
+  // Find the first product that has the featured toggle turned on
+  const featuredProduct = products.find(p => p.featured === true || p.featured === "true");
+  
+  // Get the image URL
+  const imageUrl = featuredProduct ? getProductImage(featuredProduct) : "";
+
+  // If there is no featured product OR it has no image, hide the section completely
+  if (!featuredProduct || !imageUrl) {
+    featuredSpotlight.style.display = "none";
+    return;
+  }
+
+  // Show the spotlight section
+  featuredSpotlight.style.display = "block";
+  featuredProductContainer.innerHTML = ""; // Clear old content
+
+  // Create the card (using the same classes so it matches your CSS)
+const card = document.createElement("article");
+card.className = "product-card";
+
+// Let the CSS handle the sizing instead of inline styles
+
+  const image = document.createElement("img");
+  image.src = imageUrl;
+  image.alt = featuredProduct.name || "Featured piece";
+  
+  const info = document.createElement("div");
+  info.className = "product-card-info";
+
+  const name = document.createElement("h3");
+  name.textContent = featuredProduct.name || "Untitled product";
+  name.style.fontSize = "1.5rem"; // Slightly larger text for the spotlight
+
+  const description = document.createElement("p");
+  description.textContent = featuredProduct.description || "";
+
+  const price = document.createElement("p");
+  price.className = "price";
+  price.textContent = featuredProduct.price != null ?
+    formatPrice(featuredProduct.price, featuredProduct.currency || "NGN") : "";
+
+  const stock = document.createElement("p");
+  stock.className = "stock-status";
+  const isSoldOut = featuredProduct.stock_status === "Sold Out";
+  
+  stock.textContent = isSoldOut ? "Sold Out" : "In Stock";
+  stock.classList.add(isSoldOut ? "sold-out" : "in-stock");
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.textContent = isSoldOut ? "Currently Sold Out" : "Enquire on WhatsApp";
+  button.disabled = isSoldOut;
+
+  if (!isSoldOut) {
+    button.addEventListener("click", () => {
+      window.open(makeWhatsAppLink(featuredProduct), "_blank", "noopener,noreferrer");
+    });
+  }
+
+  info.append(name, description, price, stock, button);
+  card.append(image, info);
+  featuredProductContainer.appendChild(card);
+}
+// ---------------------------------------------------------
+
+
+// Render products (Main Grid)
 function renderProducts() {
   const query = searchInput.value.trim().toLowerCase();
   const category = categoryFilter.value;
   
-  // 1. Filter the products first
   let visibleProducts = products.filter(product => {
     const matchesSearch = (
       `${product.name || ""} ${product.description || ""}`
@@ -101,12 +174,10 @@ function renderProducts() {
     return matchesSearch && matchesCategory && isPublished;
   });
   
-  // 2. Sort the filtered products so "Featured" items are at the top
+  // Sort so featured items are at the top of the grid
   visibleProducts.sort((a, b) => {
-    // Handle both boolean true and string "true"
     const aFeatured = a.featured === true || a.featured === "true" ? 1 : 0;
     const bFeatured = b.featured === true || b.featured === "true" ? 1 : 0;
-    
     return bFeatured - aFeatured;
   });
   
@@ -131,10 +202,7 @@ function renderProducts() {
     const card = document.createElement("article");
     card.className = "product-card";
     
-    // Product image
     const imageUrl = getProductImage(product);
-    
-    // Skip products without a public image
     if (!imageUrl) return;
     
     const image = document.createElement("img");
@@ -146,7 +214,6 @@ function renderProducts() {
       card.remove();
     };
     
-    // Product information
     const info = document.createElement("div");
     info.className = "product-card-info";
     
@@ -162,10 +229,8 @@ function renderProducts() {
       formatPrice(product.price, product.currency || "NGN") :
       "";
     
-    // Stock status
     const stock = document.createElement("p");
     stock.className = "stock-status";
-    
     const isSoldOut = product.stock_status === "Sold Out";
     
     stock.textContent = isSoldOut ? "Sold Out" : "In Stock";
@@ -176,22 +241,14 @@ function renderProducts() {
       stock.classList.add("in-stock");
     }
     
-    // WhatsApp enquiry button
     const button = document.createElement("button");
     button.type = "button";
-    button.textContent = isSoldOut ?
-      "Currently Sold Out" :
-      "Enquire on WhatsApp";
-    
+    button.textContent = isSoldOut ? "Currently Sold Out" : "Enquire on WhatsApp";
     button.disabled = isSoldOut;
     
     if (!isSoldOut) {
       button.addEventListener("click", () => {
-        window.open(
-          makeWhatsAppLink(product),
-          "_blank",
-          "noopener,noreferrer"
-        );
+        window.open(makeWhatsAppLink(product), "_blank", "noopener,noreferrer");
       });
     }
     
@@ -201,16 +258,12 @@ function renderProducts() {
     productGrid.appendChild(card);
   });
   
-  // If every visible product was skipped because it had no image
   if (!productGrid.children.length) {
     productGrid.appendChild(emptyState);
     emptyState.hidden = false;
     
-    emptyState.querySelector("h3").textContent =
-      "Product photos coming soon.";
-    
-    emptyState.querySelector("p").textContent =
-      "Please check back shortly for our latest collection.";
+    emptyState.querySelector("h3").textContent = "Product photos coming soon.";
+    emptyState.querySelector("p").textContent = "Please check back shortly for our latest collection.";
   }
 }
 
@@ -224,15 +277,12 @@ function populateCategories() {
     )
   ].sort();
   
-  categoryFilter.innerHTML =
-    '<option value="all">All categories</option>';
+  categoryFilter.innerHTML = '<option value="all">All categories</option>';
   
   categories.forEach(category => {
     const option = document.createElement("option");
-    
     option.value = category;
     option.textContent = category;
-    
     categoryFilter.appendChild(option);
   });
 }
@@ -251,9 +301,7 @@ async function loadProducts() {
     });
     
     if (!response.ok) {
-      throw new Error(
-        `Product request failed (${response.status})`
-      );
+      throw new Error(`Product request failed (${response.status})`);
     }
     
     const data = await response.json();
@@ -268,28 +316,25 @@ async function loadProducts() {
     );
     
     populateCategories();
+    
+    // --- NEW LINE ADDED HERE ---
+    renderFeaturedProduct(); 
+    // ----------------------------
+    
     renderProducts();
     
     loadMessage.textContent = "";
     
-    console.log(
-      `TEM'S & CO.: Loaded ${products.length} published products.`
-    );
+    console.log(`TEM'S & CO.: Loaded ${products.length} published products.`);
     
   } catch (error) {
-    console.error(
-      "Unable to load TEM'S & CO. products:",
-      error
-    );
-    
-    loadMessage.textContent =
-      "We couldn't load the collection right now. Please try again later.";
+    console.error("Unable to load TEM'S & CO. products:", error);
+    loadMessage.textContent = "We couldn't load the collection right now. Please try again later.";
   }
 }
 
 // Search and category events
 searchInput.addEventListener("input", renderProducts);
-
 categoryFilter.addEventListener("change", renderProducts);
 
 // Start the storefront
