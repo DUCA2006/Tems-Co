@@ -91,25 +91,27 @@ function getProductImage(product) {
   }
 }
 
-// Create WhatsApp enquiry link with product photo URL & details
+// Create clean WhatsApp enquiry link with photo preview
 function makeWhatsAppLink(product) {
   const imageUrl = getProductImage(product);
-  const productCode = product.id || product._id || product.sku || "";
   const formattedPrice =
     product.price != null
       ? formatPrice(product.price, product.currency || "NGN")
       : "";
 
+  const summary = formattedPrice
+    ? `${product.name || "Item"} — ${formattedPrice}`
+    : `${product.name || "Item"}`;
+
   const message = [
-    "Hello TEM'S & CO., I want to order this piece:",
-    `• *Item:* ${product.name || "Untitled product"}`,
-    formattedPrice ? `• *Price:* ${formattedPrice}` : "",
-    product.category ? `• *Category:* ${product.category}` : "",
-    productCode ? `• *Code:* #${productCode}` : "",
-    imageUrl ? `• *Photo:* ${imageUrl}` : ""
+    "Hello TEM'S & CO., I want to order this:",
+    summary,
+    "",
+    imageUrl
   ]
-    .filter(Boolean)
-    .join("\n");
+    .filter(line => line !== undefined && line !== null)
+    .join("\n")
+    .trim();
 
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
