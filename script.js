@@ -59,22 +59,6 @@ function formatPrice(value, currency = "NGN") {
   }
 }
 
-// Create WhatsApp enquiry link
-function makeWhatsAppLink(product) {
-  const message = [
-      "Hello TEM'S & CO.,",
-      `I'm interested in ${product.name}.`,
-      product.price != null ?
-      `Price: ${formatPrice(product.price, product.currency || "NGN")}` :
-      "",
-      "Is this item still available?"
-    ]
-    .filter(Boolean)
-    .join("\n");
-  
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-}
-
 // Get high-resolution product image from Base44
 function getProductImage(product) {
   const rawUrl =
@@ -105,6 +89,29 @@ function getProductImage(product) {
   } catch {
     return rawUrl;
   }
+}
+
+// Create WhatsApp enquiry link with product photo URL & details
+function makeWhatsAppLink(product) {
+  const imageUrl = getProductImage(product);
+  const productCode = product.id || product._id || product.sku || "";
+  const formattedPrice =
+    product.price != null
+      ? formatPrice(product.price, product.currency || "NGN")
+      : "";
+
+  const message = [
+    "Hello TEM'S & CO., I want to order this piece:",
+    `• *Item:* ${product.name || "Untitled product"}`,
+    formattedPrice ? `• *Price:* ${formattedPrice}` : "",
+    product.category ? `• *Category:* ${product.category}` : "",
+    productCode ? `• *Code:* #${productCode}` : "",
+    imageUrl ? `• *Photo:* ${imageUrl}` : ""
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
 // ---------------------------------------------------------
