@@ -91,9 +91,18 @@ function getProductImage(product) {
   }
 }
 
-// Create clean WhatsApp enquiry link with photo preview
+// Create clean WhatsApp enquiry link with short photo URL & preview
 function makeWhatsAppLink(product) {
-  const imageUrl = getProductImage(product);
+  let imageUrl = getProductImage(product);
+
+  const basePrefix =
+    "https://base44.app/api/apps/6b020720c4c60079e01a06b2/files/mp/public/6b020720c4c60079e01a06b2/";
+
+  if (imageUrl.startsWith(basePrefix)) {
+    const fileName = imageUrl.slice(basePrefix.length);
+    imageUrl = `https://tems-cosite.vercel.app/p/${fileName}`;
+  }
+
   const formattedPrice =
     product.price != null
       ? formatPrice(product.price, product.currency || "NGN")

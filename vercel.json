@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/p/:file*",
+      "destination": "https://base44.app/api/apps/6b020720c4c60079e01a06b2/files/mp/public/6b020720c4c60079e01a06b2/:file*"
+    }
+  ]
+}
