@@ -59,39 +59,16 @@ function formatPrice(value, currency = "NGN") {
   }
 }
 
-// Get high-resolution product image from Base44
+// Get direct product image URL from Base44 for fast storefront rendering
 function getProductImage(product) {
-  const rawUrl =
+  return (
     product.primary_image ||
     (Array.isArray(product.images) ? product.images[0] : "") ||
-    "";
-
-  if (!rawUrl) return "";
-
-  try {
-    const url = new URL(rawUrl);
-    // Ensure CDN-resized images load at high DPI sharpness (at least 900px wide)
-    if (url.searchParams.has("width")) {
-      const currentW = Number(url.searchParams.get("width"));
-      if (currentW && currentW < 900) url.searchParams.set("width", "900");
-    }
-    if (url.searchParams.has("w")) {
-      const currentW = Number(url.searchParams.get("w"));
-      if (currentW && currentW < 900) url.searchParams.set("w", "900");
-    }
-    if (url.searchParams.has("quality")) {
-      url.searchParams.set("quality", "90");
-    }
-    if (url.searchParams.has("q")) {
-      url.searchParams.set("q", "90");
-    }
-    return url.toString();
-  } catch {
-    return rawUrl;
-  }
+    ""
+  );
 }
 
-// Create clean WhatsApp enquiry link with short photo URL & preview
+// Create clean WhatsApp enquiry link with photo URL & preview
 function makeWhatsAppLink(product) {
   let imageUrl = getProductImage(product);
 
@@ -150,8 +127,7 @@ function renderFeaturedProduct() {
   image.src = imageUrl;
   image.alt = featuredProduct.name || "Featured piece";
   image.fetchPriority = "high";
-  image.decoding = "sync";
-  image.style.imageRendering = "-webkit-optimize-contrast";
+  image.decoding = "async";
 
   image.onerror = () => {
     featuredSpotlight.style.display = "none";
@@ -252,7 +228,6 @@ function renderProducts() {
     image.alt = product.name || "TEM'S & CO. jewellery";
     image.loading = "lazy";
     image.decoding = "async";
-    image.style.imageRendering = "-webkit-optimize-contrast";
     
     image.onerror = () => {
       card.remove();
