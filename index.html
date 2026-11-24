@@ -1,243 +1,307 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f8f5ef">
-  <meta name="description" content="TEM'S & CO. — Jewellery, timepieces and accessories. Elegance in every detail.">
 
-  <title>TEM'S & CO. | Elegance in Every Detail</title>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="theme-color" content="#f7f3eb">
+
+  <meta name="description"
+
+    content="TEM'S & CO. — Discover timeless jewellery, beautiful timepieces and elegant accessories.">
+
+  <title>TEM'S & CO. | Luxury in Every Detail</title>
+
+  <!-- GOOGLE FONTS -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
+
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+
+    rel="stylesheet">
+
+  <!-- MAIN STYLESHEET -->
 
   <link rel="stylesheet" href="style.css">
 
-  <!-- HERO SPOTLIGHT SIZING & VISIBILITY OVERRIDES -->
-  <style>
-    .hero-spotlight {
-      width: 100%;
-      max-width: 340px;
-      margin: 0 auto;
-    }
-
-    .hero-spotlight .eyebrow {
-      color: #8c7355 !important;
-      opacity: 1 !important;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .hero-spotlight .spotlight-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.65rem;
-      font-weight: 400;
-      margin: 0 0 14px 0;
-      line-height: 1.2;
-    }
-
-    #featuredProductContainer {
-      width: 100%;
-    }
-
-    #featuredProductContainer img {
-      width: 100%;
-      height: 230px !important;
-      max-height: 230px !important;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    @media (max-width: 600px) {
-      .hero-spotlight {
-        margin-top: 28px;
-      }
-      #featuredProductContainer > * {
-        padding-bottom: 14px;
-      }
-      #featuredProductContainer h3,
-      #featuredProductContainer .product-title {
-        font-size: 1.15rem;
-        margin-bottom: 4px;
-      }
-    }
-  </style>
 </head>
 
 <body>
 
-  <!-- ANNOUNCEMENT -->
+  <!-- ANNOUNCEMENT BAR -->
+
   <div class="announcement">
+
     ELEGANCE IN EVERY DETAIL
+
   </div>
 
-  <!-- HEADER -->
+  <!-- FLOATING GLASS NAVIGATION -->
+
   <header class="site-header">
 
-    <a class="brand" href="#" aria-label="TEM'S and CO home">
+    <a class="brand" href="#home">
+
       <span class="brand-name">
+
         TEM'S <span>&amp; CO.</span>
+
       </span>
 
       <span class="brand-subtitle">
+
         JEWELLERY · TIMEPIECES · ACCESSORIES
+
       </span>
+
     </a>
 
+    <!-- MOBILE MENU -->
+
     <button
+
       class="menu-toggle"
+
       id="menuToggle"
-      aria-label="Open navigation"
+
+      aria-label="Toggle navigation"
+
       aria-expanded="false"
-    >
+
+      aria-controls="mainNav">
+
       <span></span>
+
       <span></span>
+
     </button>
+
+    <!-- NAVIGATION LINKS -->
 
     <nav class="main-nav" id="mainNav">
 
       <a href="#home">Home</a>
-      <a href="#shop">Shop</a>
+
+      <a href="#shop">Collection</a>
+
       <a href="#about">Our Story</a>
+
       <a href="#contact">Contact</a>
 
     </nav>
 
+    <!-- WHATSAPP -->
+
     <a
+
       class="header-contact"
+
       href="https://wa.me/2348074608682"
+
       target="_blank"
-      rel="noopener"
-    >
+
+      rel="noopener noreferrer">
+
       <span class="contact-dot"></span>
+
       WhatsApp
+
     </a>
 
   </header>
 
-
   <main>
 
     <!-- HERO SECTION -->
+
     <section class="hero" id="home">
+
+      <!-- HERO TEXT -->
 
       <div class="hero-copy">
 
         <p class="eyebrow">
+
           <span></span>
+
           THE TEM'S &amp; CO. EXPERIENCE
+
         </p>
 
         <h1>
+
           Details that make
+
           <br>
+
           <em>you unforgettable.</em>
+
         </h1>
 
         <p class="hero-description">
+
           Discover the beauty of thoughtful details,
+
           timeless style and effortless elegance.
+
         </p>
 
         <a class="primary-button" href="#shop">
+
           Explore the collection
+
         </a>
 
         <div class="hero-note">
+
           <span class="note-line"></span>
+
           JEWELLERY · TIMEPIECES · ACCESSORIES
+
         </div>
 
       </div>
 
+      <!-- FEATURED PRODUCT -->
 
-      <!-- FEATURED SPOTLIGHT (REPLACED HERO-ART) -->
-      <div class="hero-spotlight" id="featuredSpotlight" style="display: none;">
-        <p class="eyebrow">THE SPOTLIGHT</p>
-        <h2 class="spotlight-title">Featured <em>piece.</em></h2>
+      <div
+
+        class="hero-spotlight"
+
+        id="featuredSpotlight"
+
+        style="display:none;">
+
+        <p class="eyebrow">
+
+          THE SPOTLIGHT
+
+        </p>
+
+        <h2 class="spotlight-title">
+
+          Featured <em>piece.</em>
+
+        </h2>
+
         <div id="featuredProductContainer">
-          <!-- The featured product will be injected here by Javascript -->
+
+          <!-- Featured product injected by JavaScript -->
+
         </div>
+
       </div>
 
     </section>
 
+    <!-- BRAND TRUST SECTION -->
 
-    <!-- BRAND HIGHLIGHTS -->
     <section class="trust-strip">
 
       <div>
+
         <span class="trust-icon">✧</span>
+
         <span>Thoughtfully selected pieces</span>
+
       </div>
 
       <div>
+
         <span class="trust-icon">◇</span>
+
         <span>Personal service</span>
+
       </div>
 
       <div>
+
         <span class="trust-icon">✧</span>
+
         <span>Easy WhatsApp enquiries</span>
+
       </div>
 
     </section>
 
+    <!-- COLLECTION SECTION -->
 
-    <!-- SHOP SECTION -->
     <section class="shop-section section-wrap" id="shop">
+
+      <!-- SECTION HEADING -->
 
       <div class="section-heading">
 
         <div>
 
           <p class="eyebrow">
+
             THE COLLECTION
+
           </p>
 
           <h2>
+
             Find your <em>signature.</em>
+
           </h2>
 
         </div>
 
         <p class="section-intro">
+
           Explore pieces chosen to complement
+
           your own kind of elegance.
+
         </p>
 
       </div>
 
-
       <!-- SEARCH AND FILTER -->
+
       <div class="shop-tools">
+
+        <!-- SEARCH -->
 
         <label class="search-box" for="productSearch">
 
           <span>⌕</span>
 
           <input
-            id="productSearch"
+
             type="search"
-            placeholder="Search the collection"
-            autocomplete="off"
-          >
+
+            id="productSearch"
+
+            placeholder="Search the collection..."
+
+            autocomplete="off">
 
         </label>
 
+        <!-- CATEGORY FILTER -->
 
         <div class="filter-wrap">
 
           <label class="sr-only" for="categoryFilter">
+
             Filter by category
+
           </label>
 
           <select id="categoryFilter">
 
             <option value="all">
+
               All categories
+
             </option>
 
           </select>
@@ -246,124 +310,186 @@
 
       </div>
 
+      <!-- PRODUCTS FROM BASE44 -->
 
-      <!-- PRODUCTS WILL LOAD FROM BASE44 -->
       <div
+
         class="product-grid"
+
         id="productGrid"
-        aria-live="polite"
-      >
+
+        aria-live="polite">
+
+        <!-- LOADING / EMPTY STATE -->
 
         <div class="empty-state" id="emptyState">
 
-          <span class="empty-mark">✧</span>
+          <span class="empty-mark">
+
+            ✧
+
+          </span>
 
           <h3>
+
             The collection is being prepared.
+
           </h3>
 
           <p>
+
             New pieces will appear here soon.
+
             Please check back shortly.
+
           </p>
 
         </div>
 
       </div>
 
+      <!-- LOADING MESSAGE -->
+
       <p
+
         class="load-message"
+
         id="loadMessage"
-        role="status"
-      ></p>
+
+        role="status">
+
+      </p>
 
     </section>
 
+    <!-- OUR STORY -->
 
-    <!-- ABOUT SECTION -->
     <section class="story-section" id="about">
 
+      <!-- BRAND SYMBOL -->
+
       <div class="story-mark">
+
         T<span>&amp;</span>C
+
       </div>
+
+      <!-- STORY CONTENT -->
 
       <div class="story-copy">
 
         <p class="eyebrow">
+
           A NOTE FROM TEM'S &amp; CO.
+
         </p>
 
         <h2>
+
           Elegance lives
+
           <br>
+
           in the <em>details.</em>
+
         </h2>
 
         <p>
+
           We believe the right detail can make
+
           an everyday moment feel special.
 
           TEM'S &amp; CO. is a destination for
+
           jewellery, timepieces and accessories
+
           that let your personal style shine.
+
         </p>
 
       </div>
 
     </section>
 
-
     <!-- CONTACT SECTION -->
-    <section class="contact-section section-wrap" id="contact">
+
+    <section
+
+      class="contact-section section-wrap"
+
+      id="contact">
 
       <p class="eyebrow">
+
         LET'S CONNECT
+
       </p>
 
       <h2>
+
         Something caught your eye?
+
       </h2>
 
       <p>
+
         Speak with us directly on WhatsApp
+
         for product enquiries and assistance.
+
       </p>
 
       <a
+
         class="primary-button"
+
         href="https://wa.me/2348074608682"
+
         target="_blank"
-        rel="noopener"
-      >
+
+        rel="noopener noreferrer">
+
         Chat with TEM'S &amp; CO.
+
       </a>
 
     </section>
 
   </main>
 
-
   <!-- FOOTER -->
+
   <footer class="site-footer">
 
-    <a class="footer-brand" href="#">
+    <a class="footer-brand" href="#home">
+
       TEM'S <span>&amp; CO.</span>
+
     </a>
 
     <p>
+
       Elegance in Every Detail.
+
     </p>
 
     <span class="copyright">
+
       © <span id="year"></span>
-      TEM'S &amp; CO. All rights reserved.
+
+      TEM'S &amp; CO.
+
+      All rights reserved.
+
     </span>
 
   </footer>
 
-
   <!-- JAVASCRIPT -->
+
   <script src="script.js"></script>
 
 </body>
+
 </html>
