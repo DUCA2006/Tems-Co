@@ -996,6 +996,22 @@ h2 {
 
 }
 
+.product-card-info .stock-status.sold-out {
+
+  color: #c62828;
+
+  font-weight: 600;
+
+}
+
+.product-card-info .stock-status.in-stock {
+
+  color: #2e7d32;
+
+  font-weight: 600;
+
+}
+
 /* PRODUCT BUTTON */
 
 .product-card-info button {
@@ -1037,6 +1053,34 @@ h2 {
   color: white;
 
   transform: translateY(-1px);
+
+}
+
+.product-card-info button.btn-sold-out {
+
+  border-color: rgba(198, 40, 40, 0.35);
+
+  background: rgba(198, 40, 40, 0.08);
+
+  color: #c62828;
+
+}
+
+.product-card-info button.btn-in-stock {
+
+  border-color: rgba(46, 125, 50, 0.45);
+
+  background: rgba(46, 125, 50, 0.1);
+
+  color: #2e7d32;
+
+}
+
+.product-card-info button.btn-in-stock:hover:not(:disabled) {
+
+  background: #2e7d32;
+
+  color: #ffffff;
 
 }
 

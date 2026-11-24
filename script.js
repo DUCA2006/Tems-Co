@@ -158,6 +158,7 @@ function renderFeaturedProduct() {
   button.type = "button";
   button.textContent = isSoldOut ? "Currently Sold Out" : "Enquire on WhatsApp";
   button.disabled = isSoldOut;
+  button.classList.add(isSoldOut ? "btn-sold-out" : "btn-in-stock");
 
   if (!isSoldOut) {
     button.addEventListener("click", () => {
@@ -264,6 +265,7 @@ function renderProducts() {
     button.type = "button";
     button.textContent = isSoldOut ? "Currently Sold Out" : "Enquire on WhatsApp";
     button.disabled = isSoldOut;
+    button.classList.add(isSoldOut ? "btn-sold-out" : "btn-in-stock");
     
     if (!isSoldOut) {
       button.addEventListener("click", () => {
